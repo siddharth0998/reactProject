@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 export default function MyAPI() {
     const [data, setdata] = useState([]);
+    const [load,setload] = useState(false);
 
     useEffect(() => {
 
@@ -11,7 +12,7 @@ export default function MyAPI() {
                 setdata(y);
             })
 
-    }, [])
+    }, [load])
 
     const remove = (id) => {
         setdata(data.filter((x) => {
@@ -19,6 +20,10 @@ export default function MyAPI() {
                 return true;
             }
         }))
+    }
+
+    const refresh = () => {
+        setload(!load);
     }
 
     return (
@@ -34,6 +39,7 @@ export default function MyAPI() {
                     )
                 })
             }
+            <button onClick={()=>{refresh()}}>Refresh</button>
         </div>
     )
 
