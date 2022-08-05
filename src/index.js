@@ -10,10 +10,12 @@ import MyTest from './MyTest.js';
 import MyAPI from './MyAPI';
 import Tours from './Tours';
 import String from './String';
+import Pagination from './Pagination';
+import FormData from './FormData'; 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Tours/>
+    <Pagination/>
   </React.StrictMode>
 );
 
