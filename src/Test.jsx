@@ -15,12 +15,8 @@ export default function Test() {
         }
     })
     const [data, setData] = useState([]);
-    // const [edit,setEdit] = useState({
-    //     form : {
-    //         name: "",
-    //         mobileNumber: "",
-    //     }
-    // });
+    const [toggle, setToggle] = useState(true);
+    const [edit,setEdit] = useState(null);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -34,20 +30,44 @@ export default function Test() {
     }
 
     const handleSubmit = () => {
-        const { form } = state;
-        setData([...data, form]);
+        if (!(state.form.name && state.form.mobileNumber)) {
+            
+        }
+        else if((state.form.name && state.form.mobileNumber) && !toggle){
+            const l = (data.map((x,i)=>{
+                 if(i === edit){
+                    const {form} = state;
+                    let newdata = [];
+                    newdata.push(form);
+                    return [...data, data[i] = form];
+                 }
+            }))
+            setToggle(true);
+        }
+        else{
+            const { form } = state;
+            setData([...data, form]);
+        }
     }
 
-    const deletefunc = (e,data,index)=>{
+    const deletefunc = (e, data, index) => {
         const newData = [...data];
-        newData.splice(index,1);
+        newData.splice(index, 1);
         setData(newData);
     }
-    
-    const editfunc = (e,data,index)=>{
-        
+
+    const editfunc = (e, data, index) => {
+        let newEditData = data.find((x,i)=>{
+            return i === index
+        });
+        let newForm = {
+            form : newEditData
+        } 
+        setState(newForm);
+        setToggle(false);
+        setEdit(index);
     }
-    
+
     return (
         <div>
             <div className='container'>
