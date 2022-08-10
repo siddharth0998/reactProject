@@ -152,7 +152,7 @@ export default function FullForm() {
           const {form, formErrors} = state;
           const errorObj = validateForm(form, formErrors, validateField);
           if(Object.keys(errorObj).length !==0){
-            setState({...state, formErrors: {... formErrors, ... errorObj}});
+            setState({...state, formErrors: errorObj});
             return false;
           }
           console.log("Data: ", form);
