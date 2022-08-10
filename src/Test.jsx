@@ -34,14 +34,14 @@ export default function Test() {
             
         }
         else if((state.form.name && state.form.mobileNumber) && !toggle){
-            const l = (data.map((x,i)=>{
+             data.map((x,i)=>{
                  if(i === edit){
                     const {form} = state;
                     let newdata = [];
                     newdata.push(form);
                     return [...data, data[i] = form];
                  }
-            }))
+            })
             setToggle(true);
         }
         else{
@@ -82,7 +82,8 @@ export default function Test() {
                                 <input type="text" className="form-control" id="mobileNumber" name='mobileNumber' value={state.form.mobileNumber}
                                     onChange={handleChange} onBlur={handleChange} />
 
-                                <button type='button' className="btn btn-primary" onClick={handleSubmit}>Save</button>
+                                {toggle ?<button type='button' className="btn btn-primary" onClick={handleSubmit}>Save</button> : <button type='button' className="btn btn-primary" onClick={handleSubmit}>Edit</button>
+                                }
                             </div>
                         </form>
                     </div>
