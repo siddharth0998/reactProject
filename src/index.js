@@ -16,7 +16,7 @@ import FullFormFunction from './FullFormFunction';
 import FullForm from './FullForm';
 import EmployeeInfo from './EmployeeInfo';
 import Test from './Test';
-
+import FormikYupForm from './FormikYupForm';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
