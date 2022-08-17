@@ -83,7 +83,7 @@ export default function FullForm() {
             formErrorsObj = { ...formErrors, [name]: errorMsg };
         }
         else {
-            const errorMsg = validateField(name, value);
+            const errorMsg = validateField(name, name === "language" ? state.form["language"] : value);
             formErrorsObj = { ...formErrors, [name]: errorMsg };
         }
         setState({ ...state, form: formObj, formErrors: formErrorsObj });
@@ -106,7 +106,7 @@ export default function FullForm() {
             case 'password':
                 if (!value) errorMsg = 'please enter password.'
                 else if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/.test(value)) errorMsg = 'password must contain 1 special,1 Upper,1 Lower,1 number character and length should be between 6-16 character.'
-                //else if (refValue && value !== refValue) errorMsg = 'password and confirmPassword does not match.'
+                else if (refValue && value !== refValue) errorMsg = 'password and confirmPassword does not match.'
                 break;
             case 'confirmPassword':
                 if (!value) errorMsg = 'please enter confimPassword'

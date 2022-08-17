@@ -17,11 +17,13 @@ import FullForm from './FullForm';
 import EmployeeInfo from './EmployeeInfo';
 import Test from './Test';
 import FormikYupForm from './FormikYupForm';
+import Dynamic from './Dynamic';
+import DynamicForm from './DynamicForm';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Test />
+    <DynamicForm />
   </React.StrictMode>
 );
 

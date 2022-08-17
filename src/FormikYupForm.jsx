@@ -1,7 +1,8 @@
 import React from 'react'
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import ReactSelect from 'react-select';
+import 'yup-phone';
+import moment from 'moment'
 
 export default function FormikYupForm() {
 
@@ -35,20 +36,57 @@ export default function FormikYupForm() {
         gitHub: "",
         age: "",
         birthDate: "",
-        gender: null,
+        gender: "",
         language: [],
         country: "",
         acceptTerms: false,
     }
 
-
-
     const validationSchema = () => {
+        return Yup.object().shape({
+            fullName: Yup.string().required('Fullname is required')
+                .min(2, 'FullName must be at least 2 characters')
+                .max(20, 'FullName must not exceed 20 characters'),
+            email: Yup.string()
+                .required('Email is required')
+                .email('Email is invalid'),
+            mobileNumber: Yup.string().required("Mobile Number is required.").phone('IN', true, '${path} is invalid'),
+            password: Yup.string()
+                .required('Password is required')
+                .matches(
+                    "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})",
+                    "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one Special case Character"
+                )
+                .min(6, 'Password must be at least 6 characters')
+                .max(20, 'Password must not exceed 20 characters'),
+            confirmPassword: Yup.string()
+                .required('Confirm Password is required')
+                .oneOf([Yup.ref('password'), null], 'Confirm Password does not match'),
+            gitHub: Yup.string()
+                .matches(
+                    /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
+                    'Enter correct url!'
+                )
+                .required('Please enter website'),
+            age: Yup.number().required('Age is required')
+                .min(18),
+            birthDate: Yup.string()
+                .required("DOB is Required")
+                .test(
+                    "DOB",
+                    "Please choose a valid date of birth",
+                    (date) => moment().diff(moment(date), "years") >= 18
+                ),
+            gender: Yup.string().required('please select gender'),
+            language: Yup.array().min(2).max(4),
+            country: Yup.string().required('please select country'),
+            acceptTerms: Yup.bool().oneOf([true], 'Accept Terms is required'),
 
+        })
     }
 
-    const handleSubmit = () => {
-
+    const handleSubmit = (data) => {
+        console.log(data);
     }
 
 
@@ -186,23 +224,23 @@ export default function FormikYupForm() {
                                             })
                                         }
                                     </div>
+                                    <ErrorMessage
+                                        name="language"
+                                        component="div"
+                                        className="text-danger"
+                                    />
                                 </div>
 
                                 <div className='mb-3'>
                                     <label for='country' className='form-label'>Country</label>
-                                    <ReactSelect
-                                        name="country"
-                                        options={countryList}
-                                        // value={countryList.find(x => x.value === state.form.country)}
-                                        // onChange={e =>
-                                        //     handleChange({
-                                        //         target: {
-                                        //             name: "country",
-                                        //             value: e.value
-                                        //         }
-                                        //     })
-                                        // }
-                                    />
+                                    <Field name='country' as='select' className='form-select' >
+                                    <option value="" disabled hidden>Select Country</option>
+                                    {countryList.map((x)=>{
+                                        return (
+                                        <option value={x.value}>{x.value}</option>
+                                        )
+                                    })}
+                                    </Field>
                                     <ErrorMessage
                                         name="country"
                                         component="div"
@@ -219,6 +257,8 @@ export default function FormikYupForm() {
                                         className="text-danger"
                                     />
                                 </div>
+
+                                <button type="submit" className="btn btn-primary">Register</button>
 
                             </Form>
                         </div>

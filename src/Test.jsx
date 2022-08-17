@@ -37,8 +37,8 @@ export default function Test() {
              data.map((x,i)=>{
                  if(i === edit){
                     const {form} = state;
-                    let newdata = [];
-                    newdata.push(form);
+                    // let newdata = [];
+                    // newdata.push(form);
                     return [...data, data[i] = form];
                  }
             })
