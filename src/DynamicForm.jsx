@@ -148,22 +148,22 @@ export default function DynamicForm() {
                                                             <div key={i} className="mb-3" >
 
                                                                 <label htmlFor='qualification'>Qualification</label>
-                                                                <Field name={`education.${i}.qualification`}  className={'form-control' +
+                                                                <Field name={`education.${i}.qualification`}   >
+                                                                    {
+                                                                        ({ field }) => (
+                                                                            <select  {...field} className={'form-control' +
                                                                                 (educationErrors.qualification &&
                                                                                     educationTouched.qualification ?
-                                                                                    ' is-invalid' : '')} component="select" >
-                                                                    
-                                                                      
+                                                                                    ' is-invalid' : '')}>
                                                                                 <option value=""></option>
-                                                                                
-                                                                                 {   qualificationList.map(x =>
+                                                                                {
+                                                                                    qualificationList.map(x =>
                                                                                         <option key={i} value={i}>{x.value}</option>
                                                                                     )
-                                                                                 }
-                                                                                
-                                                                            
+                                                                                }
+                                                                            </select>
                                                                         )
-                                                                    
+                                                                    }
 
                                                                 </Field>
                                                                 <ErrorMessage

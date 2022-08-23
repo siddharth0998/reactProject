@@ -8,7 +8,7 @@ export default function Tour(data) {
     const result = value ? text.slice(0, 200) : text
 
     const display = () => {
-        setValue(!setValue);
+        setValue(!value);
     }
     console.log(data.myData.rating.rate)
     if (text.length > 200) {
@@ -20,7 +20,9 @@ export default function Tour(data) {
                     <h5 className="card-title">{data.myData.title}</h5>
                     <h2 className="card-title">{data.myData.price}</h2>
                     <p className="card-text">{result}</p>
-                    <button onClick={display}>ReadMore</button>
+                    { value ?
+                    <button onClick={display}>ReadMore</button> : <button onClick={display}>ReadLess</button>
+                    }
                     <p claaName="card-text">{data.myData.rating.rate}</p>
                     <StarRatings StarRatings
                         rating={data.myData.rating.rate}
