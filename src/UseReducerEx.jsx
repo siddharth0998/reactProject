@@ -47,12 +47,12 @@ export default function UseReducerEx() {
     }
 
     const mySave = (e) => {
-        if (toggle) {
-            setData({ type: "ADD", payload: input })
-        }
-        else {
+        if (toggle >= 0) {
             setData({ type: "SAVE", payload: input, index: toggle })
             setToggle(-1)
+        }
+        else {
+            setData({ type: "ADD", payload: input })
         }
     }
 
