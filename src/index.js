@@ -11,7 +11,7 @@ import MyAPI from './MyAPI';
 import Tours from './Tours';
 import String from './String';
 import Pagination from './Pagination';
-import FormData from './FormData'; 
+import FormData from './FormData';
 import FullFormFunction from './FullFormFunction';
 import FullForm from './FullForm';
 import EmployeeInfo from './EmployeeInfo';
@@ -21,11 +21,16 @@ import Dynamic from './Dynamic';
 import DynamicForm from './DynamicForm';
 import Ecommerce from './Ecommerce';
 import UseReducerEx from './UseReducerEx';
+import store from './store/store';
+import { Provider } from 'react-redux';
+import AddToCart from './AddToCart';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <UseReducerEx />
+      <Provider store={store}>
+        <AddToCart />
+      </Provider>
   </React.StrictMode>
 );
 
